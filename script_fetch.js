@@ -27,10 +27,10 @@ fetch("tabel.json")
 
       row.innerHTML = `
         <td>${index + 1}</td>
-        <td>${student.nisn}</td>
-        <td>${student.nis}</td>
-        <td>${capitalizeName(student.name)}</td>
-        <td>${classMap[student.class_id] || "Tidak diketahui"}</td>
+        <td>${student.NISN}</td>
+        <td>${student.NIS}</td>
+        <td>${student.NAMA}</td>
+        <td>${student.KELAS}</td>
       `;
 
       tbody.appendChild(row);
@@ -44,5 +44,6 @@ fetch("tabel.json")
       </tr>
     `;
   });
+
 
 
