@@ -20,11 +20,17 @@ h1 {
 .subtitle {
   text-align: center;
   margin-top: -20px;
-  margin-bottom: 30px; 
-  font-size: 1.1rem;
+  margin-bottom: 40px; 
+  font-size: 0.85rem;
   font-weight: 300; 
-  color: rgba(255, 255, 255, 0.9); 
-  font-style: italic;
+  color: rgba(255, 255, 255, 0.7); 
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.subtitle strong {
+  font-weight: 600;
+  color: white;
 }
 
 table {
@@ -84,3 +90,4 @@ footer strong {
   font-weight: 600;
   color: white; /* Nama kamu dibuat sedikit lebih terang */
 }
+
