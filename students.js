@@ -11,7 +11,7 @@ const pageInfo = document.getElementById("page-info");
 let allStudents = [];
 let filteredStudents = [];
 let currentPage = 1;
-const itemsPerPage = 40; // Rata-rata jumlah siswa per kelas
+const itemsPerPage = 38; // Rata-rata jumlah siswa per kelas
 
 const classMap = {
   "89b8ebb3-3bcb-41bc-bb93-affbf1f723dd": "XI-A1",
