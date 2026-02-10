@@ -4,10 +4,10 @@ const SUPABASE_KEY = "sb_publishable_YSnSFpK1kgADoDDDBPjoCA_33V0lMlc";
 const tbody = document.getElementById("data-siswa");
 
 const classMap = {
-  "32152e9d-96d0-45b2-8dff-95eb184d0a69": "XI-B1",
-  "186fcf0b-b8d6-44ce-8e4c-31dcbea5cd9c": "XI-B2",
   "89b8ebb3-3bcb-41bc-bb93-affbf1f723dd": "XI-A1",
   "d396ca44-94c6-4753-8fc1-be5be3957e35": "XI-A2",
+  "32152e9d-96d0-45b2-8dff-95eb184d0a69": "XI-B1",
+  "186fcf0b-b8d6-44ce-8e4c-31dcbea5cd9c": "XI-B2",
   "f022afb4-436a-40d1-93a3-68440fbe9531": "XI-C1",
   "f4452b54-8e48-48a3-94fe-093c672255a3": "XI-C2",
   "142c061e-e8d6-4e60-990b-2c84712a20ed": "XI-D1",
