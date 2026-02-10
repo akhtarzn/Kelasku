@@ -104,6 +104,7 @@ searchInput.addEventListener("input", (e) => {
     const className = (classMap[student.class_id] || "").toLowerCase();
     return student.name.toLowerCase().includes(keyword) || 
            student.nisn.toString().includes(keyword) || 
+           student.nis.toString().includes(keyword) || 
            className.includes(keyword);
   });
 
