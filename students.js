@@ -2,6 +2,9 @@ const SUPABASE_URL = "https://vkcgirfabwquzumgsvgy.supabase.co";
 const SUPABASE_KEY = "sb_publishable_YSnSFpK1kgADoDDDBPjoCA_33V0lMlc";
 
 const tbody = document.getElementById("data-siswa");
+const searchInput = document.getElementById("search-input"); // Ambil elemen input
+
+let allStudents = [];
 
 const classMap = {
   "89b8ebb3-3bcb-41bc-bb93-affbf1f723dd": "XI-A1",
@@ -20,7 +23,6 @@ const classMap = {
 
 function formatTanggal(isoString) {
   const date = new Date(isoString);
-
   return new Intl.DateTimeFormat('id-ID', {
     day: '2-digit',
     month: 'short',
@@ -41,6 +43,30 @@ function capitalize(text) {
     .join(" ");
 }
 
+function renderTable(data) {
+  tbody.innerHTML = "";
+
+  if (data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Data tidak ditemukan 🔍</td></tr>`;
+    return;
+  }
+
+  data.forEach((student, index) => {
+    const className = classMap[student.class_id] || "Tidak diketahui";
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${student.nisn}</td>
+      <td>${student.nis}</td>
+      <td>✅ ${capitalize(student.name)}</td>
+      <td>${className}</td>
+      <td>${formatTanggal(student.created_at)}</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
 fetch(`${SUPABASE_URL}/rest/v1/students?select=*`, {
   method: "GET",
   headers: {
@@ -56,29 +82,23 @@ fetch(`${SUPABASE_URL}/rest/v1/students?select=*`, {
   return response.json();
 })
 .then(students => {
-  tbody.innerHTML = "";
-
-  students.forEach((student, index) => {
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${student.nisn}</td>
-      <td>${student.nis}</td>
-      <td>✅ ${capitalize(student.name)}</td>
-      <td>${classMap[student.class_id] || "Tidak diketahui"}</td>
-      <td>${formatTanggal(student.created_at)}</td>
-    `;
-
-    tbody.appendChild(row);
-  });
+  allStudents = students; // Simpan ke variabel global
+  renderTable(allStudents); // Tampilkan semua data di awal
 })
 .catch(error => {
   console.error(error);
-  tbody.innerHTML = `
-    <tr>
-      <td colspan="4">Data gagal dimuat</td>
-    </tr>
-  `;
+  tbody.innerHTML = `<tr><td colspan="6">Data gagal dimuat</td></tr>`;
+});
+searchInput.addEventListener("input", (e) => {
+  const keyword = e.target.value.toLowerCase();
 
+  const filteredData = allStudents.filter(student => {
+    const className = (classMap[student.class_id] || "").toLowerCase();
+    const name = student.name.toLowerCase();
+    const nisn = student.nisn.toString().toLowerCase();
+
+    return name.includes(keyword) || nisn.includes(keyword) || className.includes(keyword);
+  });
+
+  renderTable(filteredData);
 });
