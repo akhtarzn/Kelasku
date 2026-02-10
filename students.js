@@ -1,4 +1,6 @@
 const SUPABASE_URL = "https://vkcgirfabwquzumgsvgy.supabase.co";
+const SUPABASE_KEY = "sb_publishable_YSnSFpK1kgADoDDDBPjoCA_33V0lMlc";
+
 const tbody = document.getElementById("data-siswa");
 
 const classMap = {
