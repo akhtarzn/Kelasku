@@ -2,9 +2,16 @@ const SUPABASE_URL = "https://vkcgirfabwquzumgsvgy.supabase.co";
 const SUPABASE_KEY = "sb_publishable_YSnSFpK1kgADoDDDBPjoCA_33V0lMlc";
 
 const tbody = document.getElementById("data-siswa");
-const searchInput = document.getElementById("search-input"); // Ambil elemen input
+const searchInput = document.getElementById("search-input");
+const prevBtn = document.getElementById("prev-btn");
+const nextBtn = document.getElementById("next-btn");
+const pageInfo = document.getElementById("page-info");
 
+// State untuk Pagination
 let allStudents = [];
+let filteredStudents = [];
+let currentPage = 1;
+const itemsPerPage = 40; // Rata-rata jumlah siswa per kelas
 
 const classMap = {
   "89b8ebb3-3bcb-41bc-bb93-affbf1f723dd": "XI-A1",
@@ -24,49 +31,87 @@ const classMap = {
 function formatTanggal(isoString) {
   const date = new Date(isoString);
   return new Intl.DateTimeFormat('id-ID', {
-    day: '2-digit',
-    month: 'short',
-    year: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false
+    day: '2-digit', month: 'short', year: '2-digit',
+    hour: '2-digit', minute: '2-digit', hour12: false
   }).format(date).replace(/\./g, ':');
 }
 
-const created_at = "2026-02-04 01:53:28.14688+00";
-console.log(formatTanggal(created_at)); 
-
 function capitalize(text) {
-  return text
-    .split(" ")
-    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+  if (!text) return "";
+  return text.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 }
 
-function renderTable(data) {
+// Fungsi Render Tabel dengan Pagination
+function renderTable() {
   tbody.innerHTML = "";
+  
+  // Hitung index data yang akan ditampilkan
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = filteredStudents.slice(startIndex, endIndex);
 
-  if (data.length === 0) {
+  if (paginatedData.length === 0) {
     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Data tidak ditemukan 🔍</td></tr>`;
+    updatePaginationControls(0);
     return;
   }
 
-  data.forEach((student, index) => {
-    const className = classMap[student.class_id] || "Tidak diketahui";
+  paginatedData.forEach((student, index) => {
     const row = document.createElement("tr");
-
     row.innerHTML = `
-      <td>${index + 1}</td>
+      <td>${startIndex + index + 1}</td>
       <td>${student.nisn}</td>
       <td>${student.nis}</td>
       <td>✅ ${capitalize(student.name)}</td>
-      <td>${className}</td>
+      <td>${classMap[student.class_id] || "Tidak diketahui"}</td>
       <td>${formatTanggal(student.created_at)}</td>
     `;
     tbody.appendChild(row);
   });
+
+  updatePaginationControls(filteredStudents.length);
 }
 
+function updatePaginationControls(totalItems) {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  pageInfo.innerText = `Halaman ${currentPage} dari ${totalPages || 1}`;
+  
+  prevBtn.disabled = currentPage === 1;
+  nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+}
+
+// Event Listeners untuk Pagination
+prevBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderTable();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    renderTable();
+  }
+});
+
+// Event Listener untuk Pencarian
+searchInput.addEventListener("input", (e) => {
+  const keyword = e.target.value.toLowerCase();
+  
+  filteredStudents = allStudents.filter(student => {
+    const className = (classMap[student.class_id] || "").toLowerCase();
+    return student.name.toLowerCase().includes(keyword) || 
+           student.nisn.toString().includes(keyword) || 
+           className.includes(keyword);
+  });
+
+  currentPage = 1; // Reset ke halaman pertama saat mencari
+  renderTable();
+});
+
+// Fetch Data Awal
 fetch(`${SUPABASE_URL}/rest/v1/students?select=*`, {
   method: "GET",
   headers: {
@@ -75,30 +120,13 @@ fetch(`${SUPABASE_URL}/rest/v1/students?select=*`, {
     "Content-Type": "application/json"
   }
 })
-.then(response => {
-  if (!response.ok) throw new Error("Gagal mengambil data");
-  return response.json();
-})
+.then(response => response.json())
 .then(students => {
-  allStudents = students; // Simpan ke variabel global
-  renderTable(allStudents); // Tampilkan semua data di awal
+  allStudents = students;
+  filteredStudents = students;
+  renderTable();
 })
 .catch(error => {
   console.error(error);
-  tbody.innerHTML = `<tr><td colspan="6">Data gagal dimuat</td></tr>`;
-});
-
-// Event Listener untuk Pencarian
-searchInput.addEventListener("input", (e) => {
-  const keyword = e.target.value.toLowerCase();
-
-  const filteredData = allStudents.filter(student => {
-    const className = (classMap[student.class_id] || "").toLowerCase();
-    const name = student.name.toLowerCase();
-    const nisn = student.nisn.toString().toLowerCase();
-
-    return name.includes(keyword) || nisn.includes(keyword) || className.includes(keyword);
-  });
-
-  renderTable(filteredData);
+  tbody.innerHTML = `<tr><td colspan="6">Gagal memuat data</td></tr>`;
 });
