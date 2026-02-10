@@ -116,3 +116,35 @@ footer strong {
 #search-input:focus {
   border-color: #3498db;
 }
+
+.pagination-container {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.pagination-container button {
+  padding: 8px 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.pagination-container button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.pagination-container button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+#page-info {
+  font-weight: bold;
+  color: #555;
+}
