@@ -11,7 +11,7 @@ const pageInfo = document.getElementById("page-info");
 let allClasses = [];
 let filteredClasses = [];
 let currentPage = 1;
-const itemsPerPage = 15; // Rata-rata jumlah siswa per kelas
+const itemsPerPage = 20;
 
 const walasMap = {
   "199302e5-a658-49df-b7e0-7f78a903e4a0": "Indah Putri Maulidya S., S.Pd",
@@ -56,7 +56,7 @@ function renderTable() {
     return;
   }
 
-  paginatedData.forEach((classes, index) => {
+  paginatedData.forEach((classed, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${index + 1}</td>
