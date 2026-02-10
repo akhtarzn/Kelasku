@@ -96,7 +96,8 @@ searchInput.addEventListener("input", (e) => {
   
   filteredTeachers = allTeachers.filter(teacher => {
     const lessonName = (lessonMap[teacher.lesson_id] || "").toLowerCase();
-    return teacher.nip.toLowerCase().includes(keyword) ||  
+    return teacher.name.toLowerCase().includes(keyword) ||
+           teacher.nip.toLowerCase().includes(keyword) ||  
            lessonName.includes(keyword);
   });
 
