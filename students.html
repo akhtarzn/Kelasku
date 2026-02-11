@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>MYSCHOOL - Data Siswa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>👨 Daftar Siswa 👩</h1>
+  <h3>SMA HANG TUAH 2 Sidoarjo</h3>
+  <p class="subtitle">✨ Tugas Akhir TIK oleh: Muhammad Akhtar Razaan (XI-C1) ✨</p>
+
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Cari Nama, NISN, atau Kelas...">
+  </div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>✨ No</th>
+        <th>🔖 NISN</th>
+        <th>🎖️ NIS</th>
+        <th>😊 Nama</th>
+        <th>💎 Kelas</th>
+        <th>⌚ Created</th>
+      </tr>
+    </thead>
+    <tbody id="data-siswa">
+      <!-- Data dari JavaScript -->
+    </tbody>
+  </table>
+  
+  <div class="pagination-container">
+    <button id="prev-btn">⬅️ Sebelumnya</button>
+    <span id="page-info">Halaman 1</span>
+    <button id="next-btn">Selanjutnya ➡️</button>
+  </div>
+  
+  <script src="students.js"></script>
+
+  <footer>
+    Copyright &copy; 2026. Build with passion by <strong>@akhtarzn</strong>.
+  </footer>
+</body>
+</html>
