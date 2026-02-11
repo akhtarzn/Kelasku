@@ -41,7 +41,7 @@ const teacherMap = {
   "7750b616-98ab-4a50-b803-fc3d81bf8489": "Idha Hariyani, S.Pd",
   "d4dee947-79ad-4583-b489-7d933de25c01": "Eka Rizky Rahmawati, S.Sos",
   "e49a2308-41e6-4a75-8a69-ad4af33b27de": "Dra. Mariah Ulfah",
-  "d8ab8eaf-f4c3-4beb-81e6-3913a7352f91": "Dinda Triana,
+  "d8ab8eaf-f4c3-4beb-81e6-3913a7352f91": "Dinda Triana",
   "7988a7f6-f758-41e2-8874-1cf7d9bd3be7": "Dhela",
   "f4f0e3e2-259b-4c20-a29d-d662dee85cb5": "Lastri",
   "ffa7ce13-5968-4b85-b534-b5e17c1304bd": "Miftahul Jannah, S.Sn"
