@@ -63,7 +63,7 @@ function renderTable() {
   // Hitung index data yang akan ditampilkan
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedData = filteredLessons.slice(startIndex, endIndex);
+  const paginatedData = filteredLessons_schedule.slice(startIndex, endIndex);
 
   if (paginatedData.length === 0) {
     tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Data tidak ditemukan 🔍</td></tr>`;
