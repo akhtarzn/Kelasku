@@ -20,7 +20,9 @@ const lessonMap = {
   "55785470-1ff0-45f6-9c9e-8856e9f79580": "Kimia",
   "ec81b04b-0362-4bae-8b6e-6895722fb929": "Fisika",
   "10d4199e-8572-40c3-b02a-9b681e2d96fb": "Bahasa Inggris",
-  "f85bc864-3d2e-40f8-9e8c-a3643988da30": "Bahasa Indonesia"
+  "f85bc864-3d2e-40f8-9e8c-a3643988da30": "Bahasa Indonesia",
+  "89de57e6-76f3-488c-b68d-66dda9342fcf": "Kebaharian",
+  "616e05f7-8a3c-4d48-b094-6681b71f2b0d": "PKWU"
 };
 
 function formatTanggal(isoString) {
