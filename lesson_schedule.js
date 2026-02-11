@@ -131,7 +131,7 @@ searchInput.addEventListener("input", (e) => {
 });
 
 // Fetch Data Awal
-fetch(`${SUPABASE_URL}/rest/v1/lesson?select=*`, {
+fetch(`${SUPABASE_URL}/rest/v1/lesson_schedule?select=*`, {
   method: "GET",
   headers: {
     "apikey": SUPABASE_KEY,
